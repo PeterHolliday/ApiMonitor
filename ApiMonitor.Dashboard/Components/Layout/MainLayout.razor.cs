@@ -10,7 +10,7 @@ using Microsoft.JSInterop;
 using Radzen;
 using Radzen.Blazor;
 
-namespace APIMonitor.Dashboard.Components.Layout
+namespace ApiMonitor.Dashboard.Components.Layout
 {
     public partial class MainLayout
     {

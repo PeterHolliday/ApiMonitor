@@ -1,35 +1,48 @@
-using APIMonitor.Dashboard.Data;
-using APIMonitor.Dashboard.Services;
-using Azure.Identity;
-using Azure.Security.KeyVault.Secrets;
 using Radzen;
-using Serilog;
+using ApiMonitor.Dashboard.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseSerilog((ctx, cfg) =>
-    cfg.ReadFrom.Configuration(ctx.Configuration).Enrich.FromLogContext());
+// Add services to the container.
+builder.Services.AddRazorComponents()
+      .AddInteractiveServerComponents().AddHubOptions(options => options.MaximumReceiveMessageSize = 10 * 1024 * 1024);
 
-// Key Vault (optional but recommended)
-var vaultUri = builder.Configuration["KeyVault:VaultUri"];
-if (!string.IsNullOrWhiteSpace(vaultUri))
+builder.Services.AddControllers();
+builder.Services.AddRadzenComponents();
+
+builder.Services.AddRadzenCookieThemeService(options =>
 {
-    builder.Services.AddSingleton(new SecretClient(new Uri(vaultUri), new DefaultAzureCredential()));
-}
-builder.Services.AddSingleton<ISecretResolver, KeyVaultSecretResolver>();
-
-builder.Services.AddRazorPages();
-builder.Services.AddServerSideBlazor();
-builder.Services.AddScoped<DialogService>();
-builder.Services.AddScoped<NotificationService>();
-
-builder.Services.AddSingleton<IStatusRepository, StatusRepository>();
-
+    options.Name = "ApiMonitor.DashboardTheme";
+    options.Duration = TimeSpan.FromDays(365);
+});
+builder.Services.AddHttpClient();
 var app = builder.Build();
 
-if (!app.Environment.IsDevelopment()) app.UseExceptionHandler("/Error");
+
+var forwardingOptions = new ForwardedHeadersOptions()
+{
+    ForwardedHeaders = Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.XForwardedFor | Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.XForwardedProto
+};
+forwardingOptions.KnownNetworks.Clear();
+forwardingOptions.KnownProxies.Clear();
+
+app.UseForwardedHeaders(forwardingOptions);
+    
+
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Error", createScopeForErrors: true);
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+app.MapControllers();
 app.UseStaticFiles();
-app.UseRouting();
-app.MapBlazorHub();
-app.MapFallbackToPage("/_Host");
+app.UseAntiforgery();
+
+app.MapRazorComponents<App>()
+   .AddInteractiveServerRenderMode();
+
 app.Run();

@@ -5,7 +5,7 @@ VisualStudioVersion = 17.14.36327.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiMonitor.Worker", "ApiMonitor\ApiMonitor.Worker.csproj", "{339DE67A-EA88-412B-9811-045793C9D214}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIMonitor.Dashboard", "ApiMonitor.Dashboard\APIMonitor.Dashboard.csproj", "{3FAFA767-B903-4D70-2825-3723DB349546}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiMonitor.Dashboard", "ApiMonitor.Dashboard\ApiMonitor.Dashboard.csproj", "{63728CDF-4265-4467-943D-7596772FA80B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{339DE67A-EA88-412B-9811-045793C9D214}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{339DE67A-EA88-412B-9811-045793C9D214}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{339DE67A-EA88-412B-9811-045793C9D214}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3FAFA767-B903-4D70-2825-3723DB349546}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3FAFA767-B903-4D70-2825-3723DB349546}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3FAFA767-B903-4D70-2825-3723DB349546}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3FAFA767-B903-4D70-2825-3723DB349546}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63728CDF-4265-4467-943D-7596772FA80B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63728CDF-4265-4467-943D-7596772FA80B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63728CDF-4265-4467-943D-7596772FA80B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63728CDF-4265-4467-943D-7596772FA80B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

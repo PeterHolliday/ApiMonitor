@@ -8,7 +8,7 @@
     }
   },
   "profiles": {
-    "APIMonitor.Dashboard.Server": {
+    "ApiMonitor.Dashboard.Server": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

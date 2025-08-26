@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 
-namespace APIMonitor.Dashboard.Controllers
+namespace ApiMonitor.Dashboard.Controllers
 {
     public partial class UploadController : Controller
     {

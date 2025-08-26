@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
-namespace APIMonitor.Dashboard.Controllers
+namespace ApiMonitor.Dashboard.Controllers
 {
     public partial class ReportController : Controller
     {
