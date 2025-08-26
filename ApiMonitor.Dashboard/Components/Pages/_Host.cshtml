@@ -1,0 +1,30 @@
+﻿@page "/"
+@namespace ApiMonitor.Dashboard.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API Monitor Dashboard</title>
+
+  <!-- Your site CSS (optional) -->
+  <link href="css/site.css" rel="stylesheet" />
+
+  <!-- Radzen CSS (base + theme) -->
+  <link rel="stylesheet" href="_content/Radzen.Blazor/css/radzen.css" />
+  <link rel="stylesheet" href="_content/Radzen.Blazor/css/material3.css" />
+</head>
+<body>
+  <app>
+    <!-- Use your project’s fully-qualified App type to avoid namespace confusion -->
+    <component type="typeof(ApiMonitor.Dashboard.Pages.App)" render-mode="ServerPrerendered" />
+  </app>
+
+  <script src="_framework/blazor.server.js"></script>
+  <script src="_content/Radzen.Blazor/Radzen.Blazor.js"></script>
+</body>
+</html>

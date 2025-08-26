@@ -1,0 +1,56 @@
+@page "/"
+
+@using APIMonitor.Dashboard.Models
+
+<div class="container p-4">
+  <div class="flex items-center gap-4 mb-3">
+    <RadzenLabel Text="Environment:" />
+    <RadzenDropDown @bind-Value="SelectedEnv" Data="Environments" Style="width:200px"
+                    Change="@(args => OnEnvChanged())" />
+    <RadzenButton Text="Refresh" Click="@(args => RefreshAsync())" />
+    <span class="text-sm text-gray-600">Auto-refresh: @RefreshSeconds s</span>
+  </div>
+
+  <RadzenDataGrid Data="Filtered" RowSelect="OnRowSelect" TItem="EndpointStatusDto" Class="w-full"
+                  AllowFiltering="true" AllowPaging="true" PageSize="25" AllowSorting="true">
+    <Columns>
+      <RadzenDataGridColumn TItem="EndpointStatusDto" Property="Environment" Title="Env" Width="90px" />
+      <RadzenDataGridColumn TItem="EndpointStatusDto" Property="EndpointName" Title="Endpoint" />
+      <RadzenDataGridColumn TItem="EndpointStatusDto" Title="Status" Width="120px">
+        <Template Context="r">
+          @if (r.IsSuccess)
+          {
+            <RadzenBadge Text="OK" Style="margin-right:6px" Severity="BadgeSeverity.Success" />
+          }
+          else if (r.Reason == "Slow")
+          {
+            <RadzenBadge Text="Slow" Severity="BadgeSeverity.Warning" />
+          }
+          else
+          {
+            <RadzenBadge Text="@r.Reason" Severity="BadgeSeverity.Danger" />
+          }
+        </Template>
+      </RadzenDataGridColumn>
+      <RadzenDataGridColumn TItem="EndpointStatusDto" Property="HttpStatus" Title="HTTP" Width="80px" />
+      <RadzenDataGridColumn TItem="EndpointStatusDto" Property="LatencyMs" Title="Latency (ms)" Width="120px" />
+      <RadzenDataGridColumn TItem="EndpointStatusDto" Property="CheckedAtUtc" Title="Checked (UTC)" Width="180px"
+                            FormatString="{0:yyyy-MM-dd HH:mm:ss}" />
+      <RadzenDataGridColumn TItem="EndpointStatusDto" Property="Details" Title="Details" />
+    </Columns>
+  </RadzenDataGrid>
+
+  @if (Selected is not null)
+  {
+    <div class="mt-6">
+      <h4>@Selected.EndpointName (@Selected.Environment) — last 24h</h4>
+      <RadzenLineSeriesDataLabels Visible="false" />
+      <RadzenChart Style="height:300px">
+        <RadzenLineSeries TValue="double" CategoryProperty="CheckedAtUtc" ValueProperty="LatencyMs"
+                          Data="TrendForSelected" Title="Latency (ms)" />
+        <RadzenCategoryAxis />
+        <RadzenNumericAxis />
+      </RadzenChart>
+    </div>
+  }
+</div>
